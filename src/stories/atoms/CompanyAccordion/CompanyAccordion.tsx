@@ -4,6 +4,7 @@ import React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 /**
  * Primary UI component for user interaction
@@ -28,7 +29,7 @@ export const CompanyAccordion = ({
           onChange={handleChange(panel.id)}
         >
           <AccordionSummary
-            expandIcon={panel.expandIcon}
+            expandIcon={<ExpandMore />}
             aria-controls={`${panel.id}-content`}
             id={`${panel.id}-header`}
           >

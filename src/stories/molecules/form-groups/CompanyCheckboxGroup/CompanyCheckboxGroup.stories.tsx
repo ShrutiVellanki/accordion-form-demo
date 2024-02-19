@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CompanyCheckboxGroup } from './CompanyCheckboxGroup';
 
 export default {
-  title: 'Molecules/CompanyCheckboxGroup',
+  title: 'Molecules/Form Groups/CompanyCheckboxGroup',
   component: CompanyCheckboxGroup,
 } as ComponentMeta<typeof CompanyCheckboxGroup>;
 

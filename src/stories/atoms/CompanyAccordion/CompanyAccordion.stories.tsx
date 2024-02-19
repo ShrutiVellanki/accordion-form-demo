@@ -1,6 +1,5 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; // If you want to specify the expand icon
 import { CompanyAccordion } from './CompanyAccordion';
 
 export default {
@@ -33,7 +32,6 @@ DefaultAccordion.args = {
           Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
         </Typography>
       ),
-      expandIcon: <ExpandMoreIcon />, // Optional, if you want to customize the expand icon
     },
     {
       id: 'panel2',
@@ -53,7 +51,6 @@ DefaultAccordion.args = {
         </Typography>
       ),
       // No need to specify expandIcon if using the default
-      expandIcon: <ExpandMoreIcon />, // Optional, if you want to customize the expand icon
     },
   ],
   backgroundColor: '', // Allows control to change the background color from Storybook UI

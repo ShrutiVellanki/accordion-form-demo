@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CompanyChipGroup } from './CompanyChipGroup';
 
 export default {
-  title: 'Molecules/CompanyChipGroup',
+  title: 'Molecules/Form Groups/CompanyChipGroup',
   component: CompanyChipGroup,
 } as ComponentMeta<typeof CompanyChipGroup>;
 
