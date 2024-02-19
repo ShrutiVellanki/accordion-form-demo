@@ -8,6 +8,7 @@ import { CompanyErrorMessage } from '../../atoms/CompanyErrorMessage/CompanyErro
 import Typography from '@mui/material/Typography';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import CompanyLoadingMessage from '../../atoms/CompanyLoadingMessage/CompanyLoadingMessage';
+import { CompanySelectGroup } from '../../molecules/form-groups/CompanySelectGroup/CompanySelectGroup';
 
 export default {
   title: 'Organisms/CompanyAccordionForm',
@@ -42,16 +43,26 @@ DefaultForm.args = {
       />,
     },
     {
-      id: 'radioGroup',
-      headerComponent: <Typography>Radio Group</Typography>,
+      id: 'selectGroup',
+      headerComponent: <Typography>Select Group</Typography>,
       detailsComponent: <CompanyRadioGroup
         options={[
           { value: 'radio1', label: 'Radio 1' },
           { value: 'radio2', label: 'Radio 2' }
         ]}
         name="radioGroupExample"
-        onChange={(event) => console.log('RadioGroup Selected:', event.target.value)}
-      />,
+        onChange={(event) => console.log('RadioGroup Selected:', event.target.value)} label={''}      />,
+    },
+  
+    {
+      id: 'selectGroup',
+      headerComponent: <Typography>Radio Group</Typography>,
+      detailsComponent: <CompanySelectGroup
+        options={[
+          { value: 'radio1', label: 'Radio 1' },
+          { value: 'radio2', label: 'Radio 2' }
+        ]}
+        onChange={(event) => console.log('RadioGroup Selected:', event.target.value)} label={''}      />,
     },
     {
       id: 'error',
