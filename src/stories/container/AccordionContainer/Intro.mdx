@@ -4,15 +4,44 @@ import { Meta } from '@storybook/blocks';
 
 # Accordion Container
 
-Background...
+`AccordionContainer` displays a list of expandable/collapsible components built on MUI's `Accordion` component. Its header and content is fully customizable.
 
 ### Use Cases
 
+Here we are using `AccordionContainer` to display filter sections but it can be used for FAQs, Marketing Material and any other place which needs a display for collapsible content.
+
 ### Inputs
+
+```
+AccordionContainer.propTypes = {
+  accordionData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      icon: PropTypes.node, // Optional icon to display before the summary
+      headerComponent: PropTypes.node.isRequired, // Any React node for the primary header
+      secondaryHeaderComponent: PropTypes.node, // Any React node for the secondary header, optional
+      detailsComponent: PropTypes.node.isRequired, // Any React node for the details
+    })
+  ).isRequired,
+};
+```
+
 
 ### State
 
+The component manages its expanded state, tracking which accordion panel is currently open. This allows for only one panel to be expanded at a time.
+
 ### Keyboard Navigation
+
+- Users can navigate between accordion headers using the Tab key.
+- The Enter or Spacebar keys toggle the expansion of the focused accordion panel.
 
 ### ARIA Attributes
 
+Built into the Accordion component:
+- `aria-controls`: Connects the accordion summary to the corresponding details panel
+- `aria-expanded`: Indicates whether the accordion panel is expanded or collapsed
+
+Additions:
+- `aria-hidden="true"` on icons
+- role="region" and aria-labelledby for AccordionDetails (to associate it with its heading)

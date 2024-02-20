@@ -9,7 +9,7 @@ import { Meta } from '@storybook/blocks';
 
 ### Use Cases
 
-`ChipFormGroup` is versatile and can be implemented in various scenarios, such as filtering options in a Work Orders filter or as part of any form within the application where users need to make multiple selections easily.
+`CheckboxFormGroup` is ideal for forms where users can make multiple selections from a dynamically fetched list of options.
 
 ### Inputs
 
@@ -32,10 +32,9 @@ description?: string; // optional description
 }
 ```
 
-### State
+### Lifting State Up
 
-State management in `ChipFormGroup` focuses on tracking selected chips. 
-By lifting state up, the parent component controls the selection which simplifies integration.
+Managing state in `ChipFormGroup` involves tracking which chips are selected. By lifting state up, the parent form component can control the chips' state.
 
 ### Keyboard Navigation
 
@@ -45,8 +44,8 @@ By lifting state up, the parent component controls the selection which simplifie
 
 ARIA attributes are used to enhance the accessibility of `ChipFormGroup`:
 
-- `role="group"`: Applied to the container holding the chips, indicating that the collection of chips forms a single group.
-- `aria-selected="true|false"`: Indicates whether a chip is selected (`true`) or not (`false`), providing state information to assistive technologies.
-- `aria-label`: Offers a textual description of each chip, which is especially useful when icons are used without text labels, ensuring that the purpose of each chip is conveyed to screen reader users.
-- `aria-labelledby`: References the ID of the label element that provides a title for the chip group, establishing a relationship between the label and the chip group for assistive technologies.
-- `aria-describedby`: Points to the ID of the description element, offering additional context or instructions for the chip group, which can be essential for understanding the group's purpose or how to interact with it.
+- `role="group"` to mark groups of chips
+- `aria-selected="true|false"` for each chip
+- `aria-label`: 
+- `aria-labelledby`: links the label and the chip group
+- `aria-describedby`: links the label and the chip description

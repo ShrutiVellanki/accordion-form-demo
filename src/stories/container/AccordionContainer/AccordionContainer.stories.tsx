@@ -1,128 +1,121 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { AccordionContainer } from './AccordionContainer';
-import { People } from '@mui/icons-material';
+import { People, Settings, Group, Security } from '@mui/icons-material';
 
 export default {
   title: 'Container/AccordionContainer',
   component: AccordionContainer,
   argTypes: {
-    backgroundColor: { control: 'color' },
   },
 };
 
 const Template = (args) => <AccordionContainer {...args} />;
 
-export const DefaultAccordion = Template.bind({});
-DefaultAccordion.args = {
+export const Overview = Template.bind({});
+Overview.args = {
   accordionData: [
     {
       id: 'panel1',
       headerComponent: (
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          General settings
+        <Typography>
+          Work Order Details
         </Typography>
       ),
       detailsComponent: (
         <Typography>
-          Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
+          Overview of work order specifics, including task descriptions, deadlines, and assigned personnel.
         </Typography>
       ),
     },
     {
       id: 'panel2',
       headerComponent: (
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          Users
+        <Typography>
+          Personnel Assignments
         </Typography>
       ),
       detailsComponent: (
         <Typography>
-          Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar diam eros in elit. Pellentesque convallis laoreet laoreet.
+          Detailed list of all personnel assigned to the work order, including roles, responsibilities, and contact information.
         </Typography>
       ),
-      // No need to specify expandIcon if using the default
     },
   ],
-  backgroundColor: '', // Allows control to change the background color from Storybook UI
 };
 
-export const WithIconHeader = Template.bind({});
-WithIconHeader.args = {
+export const WithIcons = Template.bind({});
+WithIcons.args = {
   accordionData: [
     {
       id: 'panel1',
+      icon: <Settings />,
       headerComponent: (
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          <People color="primary"/>
-          General settings
+        <Typography>
+          Work Order Settings
         </Typography>
       ),
       detailsComponent: (
         <Typography>
-          <People color="primary"/>
-          Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
+          Configuration options for this work order, such as priority level, privacy settings, and automation rules.
         </Typography>
       ),
     },
     {
       id: 'panel2',
+      icon: <Group />,
       headerComponent: (
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          Users
+        <Typography>
+          Team Overview
         </Typography>
       ),
       detailsComponent: (
         <Typography>
-          Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar diam eros in elit. Pellentesque convallis laoreet laoreet.
+          Information on the team handling this work order, including team structure, member roles, and collaboration methods.
         </Typography>
       ),
-      // No need to specify expandIcon if using the default
     },
   ],
-  backgroundColor: '', // Allows control to change the background color from Storybook UI
 };
 
-export const WithSecondaryHeader = Template.bind({});
-WithSecondaryHeader.args = {
+export const DetailedView = Template.bind({});
+DetailedView.args = {
   accordionData: [
     {
       id: 'panel1',
       headerComponent: (
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          General settings
+        <Typography>
+          Detailed Work Order View
         </Typography>
       ),
       secondaryHeaderComponent: (
         <Typography sx={{ color: 'text.secondary' }}>
-          I am an accordion
+          An in-depth look at work order tasks and milestones
         </Typography>
       ),
       detailsComponent: (
         <Typography>
-          Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
+          Explore the detailed breakdown of tasks, milestones, and progress tracking for this work order.
         </Typography>
       ),
     },
     {
       id: 'panel2',
       headerComponent: (
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          Users
+        <Typography>
+          Security and Access Controls
         </Typography>
       ),
       secondaryHeaderComponent: (
         <Typography sx={{ color: 'text.secondary' }}>
-          You are currently not an owner
+          Manage permissions and security settings
         </Typography>
       ),
       detailsComponent: (
         <Typography>
-          Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar diam eros in elit. Pellentesque convallis laoreet laoreet.
+          Set and manage access controls and security protocols for sensitive information within the work order.
         </Typography>
       ),
-      // No need to specify expandIcon if using the default
     },
   ],
-  backgroundColor: '', // Allows control to change the background color from Storybook UI
 };

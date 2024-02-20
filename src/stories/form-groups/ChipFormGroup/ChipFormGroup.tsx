@@ -22,10 +22,10 @@ export const ChipFormGroup: React.FC<ChipFormGroupProps> = ({ options, selectedC
 
   return (
       <FormControl component="fieldset" variant="standard" aria-labelledby={label ? `${name}-label` : undefined}>
-        {label && <FormLabel id={`${name}-label`} component="legend">{label}</FormLabel>}
+        <FormLabel id={`${name}-label`} component="legend">{label}</FormLabel>
         {description && <FormHelperText id={`${name}-description`}>{description}</FormHelperText>}
         <FormGroup aria-describedby={description ? `${name}-description` : undefined}>
-          <Stack direction="row" spacing={1} role="group" aria-label={label}>
+          <Stack direction="row" spacing={1} role="group">
             {options.map((data, index) => (
               <Chip
                 color={selectedChips.includes(data.key) ? "primary" : "default"}
@@ -44,7 +44,6 @@ export const ChipFormGroup: React.FC<ChipFormGroupProps> = ({ options, selectedC
                 size={data.size}
                 role="option"
                 aria-selected={selectedChips.includes(data.key) ? 'true' : 'false'}
-                aria-label={data.label}
               />
             ))}
           </Stack>
