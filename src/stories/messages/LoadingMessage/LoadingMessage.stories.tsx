@@ -12,8 +12,8 @@ export default {
 
 const Template = (args) => <LoadingMessage {...args} />;
 
-export const DefaultErrorMessage = Template.bind({});
-DefaultErrorMessage.args = {
+export const DefaultLoadingMessage = Template.bind({});
+DefaultLoadingMessage.args = {
   icon: <ErrorIcon />, // Example usage of an error icon
   message: 'Loading Data....', // Example error description
 };

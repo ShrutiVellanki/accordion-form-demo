@@ -14,7 +14,7 @@ import { Build, PriorityHigh, Place, People, AssignmentTurnedIn, Storage } from 
 const filterOptionsConfig = [
   {
     id: 'type',
-    icon: <Build />,
+    icon: <Build color="primary"/>,
     label: 'Type',
     description: 'Filter by work order type.',
     options: [
@@ -26,7 +26,7 @@ const filterOptionsConfig = [
   },
   {
     id: 'priority',
-    icon: <PriorityHigh />,
+    icon: <PriorityHigh color="primary"/>,
     label: 'Priority',
     description: 'Filter by work order priority.',
     options: [
@@ -38,7 +38,7 @@ const filterOptionsConfig = [
   },
   {
     id: 'site',
-    icon: <Place />,
+    icon: <Place color="primary"/>,
     label: 'Site',
     description: 'Filter work orders by their assigned sites.',
     options: [
@@ -51,7 +51,7 @@ const filterOptionsConfig = [
   },
   {
     id: 'assets',
-    icon: <Storage />,
+    icon: <Storage color="primary"/>,
     label: 'Assets',
     description: 'Filter work orders by their assigned assets.',
     options: [
@@ -64,7 +64,7 @@ const filterOptionsConfig = [
   },
   {
     id: 'assignedUsers',
-    icon: <People />,
+    icon: <People color="primary"/>,
     label: 'Assigned Users',
     description: 'Filter work orders by their assigned users.',
     options: [
@@ -77,7 +77,7 @@ const filterOptionsConfig = [
   },
   {
     id: 'status',
-    icon: <AssignmentTurnedIn />,
+    icon: <AssignmentTurnedIn color="primary"/>,
     label: 'Status',
     description: 'Filter by work order status',
     options: [
@@ -90,8 +90,8 @@ const filterOptionsConfig = [
 ];
 
 
-export const DefaultForm = Template.bind({});
-DefaultForm.args = {
+export const Demo = Template.bind({});
+Demo.args = {
   filterOptions: filterOptionsConfig,
   onSubmit: (event) => {
     event.preventDefault();

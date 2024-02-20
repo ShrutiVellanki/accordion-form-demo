@@ -1,7 +1,7 @@
 // WorkOrdersFilters.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { AccordionContainer } from '../container/AccordionContainer/AccordionContainer';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { CheckboxFormGroup } from '../form-groups/CheckboxFormGroup/CheckboxFormGroup';
 import { ChipFormGroup } from '../form-groups/ChipFormGroup/ChipFormGroup';
 
@@ -20,37 +20,39 @@ interface FilterOptionConfig {
   description: string;
 }
 
-function getAccordionSections(filterOptionsConfig: FilterOptionConfig[]) {
-  return filterOptionsConfig.map(({ id, icon, label, options, type, description }) => {
-    const headerComponent = (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        {icon}
-        <Typography>{label}</Typography>
-      </div>
-    );
+export const WorkOrdersFilters = ({ filterOptions, onSubmit }) => {
+  // Prepare accordion sections with updated props for handling changes
+  const accordionData = filterOptions.map(({ id, icon, label, options, type, description }) => {
 
     const detailsComponent = type === 'checkbox' ? (
       <CheckboxFormGroup name={id} options={options} description={description} />
     ) : (
-      <ChipFormGroup options={options} description={description}/>
+      <ChipFormGroup options={options} description={description} />
     );
 
-    return { id, headerComponent, detailsComponent };
+    return {
+      id,
+      headerComponent: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {icon}
+          <Typography>{label}</Typography>
+        </div>
+      ),
+      detailsComponent,
+    };
   });
-}
-
-
-
-export const WorkOrdersFilters: React.FC<WorkOrdersFiltersProps> = ({
-  filterOptions,
-  onSubmit,
-}) => {
-  const accordionData = getAccordionSections(filterOptions);
 
   return (
     <form onSubmit={onSubmit}>
-      <AccordionContainer accordionData={accordionData} backgroundColor={'white'} primary={undefined} size={undefined} label={undefined}/>
-      <button type="submit">Submit</button>
+      <AccordionContainer accordionData={accordionData} backgroundColor={'white'} />
+      <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
+        Apply Filters
+      </Button>
+      <Button variant="contained" color="primary" style={{ marginTop: '20px' }}>
+        Reset
+      </Button>
     </form>
   );
 };
+
+export default WorkOrdersFilters;
