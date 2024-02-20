@@ -78,7 +78,7 @@ function generateDetailsComponent(description, name, options) {
   return (
     <div>
       <Typography variant="body2" gutterBottom>{description}</Typography>
-      <CompanyCheckboxGroup name={name} options={options} onChange={(selectedValues) => console.log(`${name} Selected:`, selectedValues)} />
+      <CompanyCheckboxGroup name={name} options={options} />
     </div>
   );
 }
