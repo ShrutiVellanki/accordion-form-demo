@@ -4,17 +4,49 @@ import { Meta } from '@storybook/blocks';
 
 # Chip Form Group
 
-Background...
+`ChipFormGroup` is a custom component designed to group Material-UI `Chip` components and manage their selection within a form. This component fills the gap in MUI by providing a way to display multiple chips for selection, enhancing the usability of forms where multiple choices are needed.
+- [Material-UI Chip Documentation](https://mui.com/material-ui/react-chip/)
 
 ### Use Cases
 
+`ChipFormGroup` is versatile and can be implemented in various scenarios, such as filtering options in a Work Orders filter or as part of any form within the application where users need to make multiple selections easily.
+
 ### Inputs
 
+```
+// expected shape of ChipData
+interface ChipData {
+key: string;
+label: string;
+icon?: React.ReactElement; // optional icon
+size?: 'small' | 'medium'; // optional size
+}
+
+// inputs to ChipFormGroups
+interface ChipFormGroupProps {
+options: ChipData[];
+selectedChips: string[];
+onToggle: (chipKey: string) => void;
+label: string;
+description?: string; // optional description
+}
+```
+
 ### State
-- state tradeoffs
+
+State management in `ChipFormGroup` focuses on tracking selected chips. 
+By lifting state up, the parent component controls the selection which simplifies integration.
 
 ### Keyboard Navigation
 
+`ChipFormGroup` enables keyboard navigation. Users can tab to each chip and use Enter or Space to toggle selection, enhancing accessibility.
+
 ### ARIA Attributes
 
+ARIA attributes are used to enhance the accessibility of `ChipFormGroup`:
 
+- `role="group"`: Applied to the container holding the chips, indicating that the collection of chips forms a single group.
+- `aria-selected="true|false"`: Indicates whether a chip is selected (`true`) or not (`false`), providing state information to assistive technologies.
+- `aria-label`: Offers a textual description of each chip, which is especially useful when icons are used without text labels, ensuring that the purpose of each chip is conveyed to screen reader users.
+- `aria-labelledby`: References the ID of the label element that provides a title for the chip group, establishing a relationship between the label and the chip group for assistive technologies.
+- `aria-describedby`: Points to the ID of the description element, offering additional context or instructions for the chip group, which can be essential for understanding the group's purpose or how to interact with it.

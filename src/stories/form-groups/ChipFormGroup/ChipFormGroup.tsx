@@ -1,50 +1,54 @@
 import React, { useState } from 'react';
 import { Chip, Stack, FormControl, FormLabel, FormGroup, FormHelperText, IconClasses } from '@mui/material';
 
+// expected shape of ChipData
 interface ChipData {
   key: string;
   label: string;
-  icon?: React.ReactElement; 
+  icon?: React.ReactElement; // optional icon
+  size?: 'small' | 'medium'; // optional size
 }
 
+// inputs to ChipFormGroups
 interface ChipFormGroupProps {
   options: ChipData[];
-  name?: string;
-  label?: string; 
-  description?: string;
-  size?: 'small' | 'medium';
+  selectedChips: string[];
+  onToggle: (chipKey: string) => void;
+  label: string; 
+  description?: string; // optional description
 }
 
-export const ChipFormGroup: React.FC<ChipFormGroupProps> = ({ options, label, description, size = "medium" }) => {
-  const [selectedChips, setSelectedChips] = useState<string[]>([]);
-
-  const handleToggle = (chipKey: string) => {
-    setSelectedChips((prevSelected) =>
-      prevSelected.includes(chipKey)
-        ? prevSelected.filter((key) => key !== chipKey) // Unselect
-        : [...prevSelected, chipKey] // Select
-    );
-  };
+export const ChipFormGroup: React.FC<ChipFormGroupProps> = ({ options, selectedChips, onToggle, label, description}) => {
 
   return (
-    <FormControl component="fieldset" variant="standard">
-      {label && <FormLabel component="legend">{label}</FormLabel>}
-      {description && <FormHelperText>{description}</FormHelperText>}
-      <FormGroup>
-        <Stack direction="row" spacing={1}>
-          {options.map((data) => (
-            <Chip
-              color={selectedChips.includes(data.key) ? "primary" : "default"}
-              key={data.key}
-              label={data.label}
-              onClick={() => handleToggle(data.key)}
-              variant={selectedChips.includes(data.key) ? "filled" : "outlined"}
-              icon={data.icon}
-              size={size} 
-            />
-          ))}
-        </Stack>
-      </FormGroup>
-    </FormControl>
+      <FormControl component="fieldset" variant="standard" aria-labelledby={label ? `${name}-label` : undefined}>
+        {label && <FormLabel id={`${name}-label`} component="legend">{label}</FormLabel>}
+        {description && <FormHelperText id={`${name}-description`}>{description}</FormHelperText>}
+        <FormGroup aria-describedby={description ? `${name}-description` : undefined}>
+          <Stack direction="row" spacing={1} role="group" aria-label={label}>
+            {options.map((data, index) => (
+              <Chip
+                color={selectedChips.includes(data.key) ? "primary" : "default"}
+                key={data.key}
+                label={data.label}
+                onClick={() => onToggle(data.key)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    onToggle(data.key);
+                    e.preventDefault();
+                  }
+                }}
+                tabIndex={0}
+                variant={selectedChips.includes(data.key) ? "filled" : "outlined"}
+                icon={data.icon}
+                size={data.size}
+                role="option"
+                aria-selected={selectedChips.includes(data.key) ? 'true' : 'false'}
+                aria-label={data.label}
+              />
+            ))}
+          </Stack>
+        </FormGroup>
+      </FormControl>
   );
 };
