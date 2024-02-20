@@ -1,16 +1,16 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { CompanyAccordion } from './CompanyAccordion';
+import { AccordionContainer } from './AccordionContainer';
 
 export default {
-  title: 'Atoms/CompanyAccordion',
-  component: CompanyAccordion,
+  title: 'Container/AccordionContainer',
+  component: AccordionContainer,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
 };
 
-const Template = (args) => <CompanyAccordion {...args} />;
+const Template = (args) => <AccordionContainer {...args} />;
 
 export const DefaultAccordion = Template.bind({});
 DefaultAccordion.args = {

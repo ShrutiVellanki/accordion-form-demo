@@ -1,21 +1,21 @@
-// CompanyChipGroup.stories.tsx
+// ChipFormGroup.stories.tsx
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CompanyChipGroup } from './CompanyChipGroup';
+import { ChipFormGroup } from './ChipFormGroup';
 import { BuildCircle, Face, Hardware, PrecisionManufacturing } from '@mui/icons-material';
 
 export default {
-  title: 'Molecules/CompanyChipGroup',
-  component: CompanyChipGroup,
-} as ComponentMeta<typeof CompanyChipGroup>;
+  title: 'Form Groups/ChipFormGroup',
+  component: ChipFormGroup,
+} as ComponentMeta<typeof ChipFormGroup>;
 
-const Template: ComponentStory<typeof CompanyChipGroup> = (args) => <CompanyChipGroup {...args} />;
+const Template: ComponentStory<typeof ChipFormGroup> = (args) => <ChipFormGroup {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
   label: 'Work Sites',
-  helperText: 'Filter work orders by work sites.',
-  chipData: [
+  description: 'Filter work orders by work sites.',
+  options: [
     { key: 'toronto', label: 'Toronto'},
     { key: 'hamilton', label: 'Hamilton'},
   ],
@@ -24,8 +24,8 @@ Basic.args = {
 export const WithIcons = Template.bind({});
 WithIcons.args = {
   label: 'Assets',
-  helperText: 'Filter work orders by asset types.',
-  chipData: [
+  description: 'Filter work orders by asset types.',
+  options: [
     { key: 'wrench', label: 'Wrench', icon: <BuildCircle/>},
     { key: 'hammer5002', label: 'Hammer', icon: <Hardware /> },
     { key: 'robotic-arm-1088', label: 'Robotic Arm', icon: <PrecisionManufacturing/> },
@@ -35,8 +35,8 @@ WithIcons.args = {
 export const SmallSize = Template.bind({});
 SmallSize.args = {
   label: 'Work Sites',
-  helperText: 'Filter work orders by work sites.',
-  chipData: [
+  description: 'Filter work orders by work sites.',
+  options: [
     { key: 'toronto', label: 'Toronto'},
     { key: 'hamilton', label: 'Hamilton'},
     { key: 'sarnia', label: 'Sarnia'},

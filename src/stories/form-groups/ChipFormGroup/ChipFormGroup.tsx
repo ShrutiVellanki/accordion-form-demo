@@ -7,14 +7,15 @@ interface ChipData {
   icon?: React.ReactElement; 
 }
 
-interface CompanyChipGroupProps {
-  chipData: ChipData[];
+interface ChipFormGroupProps {
+  options: ChipData[];
+  name?: string;
   label?: string; 
-  helperText?: string;
+  description?: string;
   size?: 'small' | 'medium';
 }
 
-export const CompanyChipGroup: React.FC<CompanyChipGroupProps> = ({ chipData, label, helperText, size = "medium" }) => {
+export const ChipFormGroup: React.FC<ChipFormGroupProps> = ({ options, label, description, size = "medium" }) => {
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
 
   const handleToggle = (chipKey: string) => {
@@ -28,10 +29,10 @@ export const CompanyChipGroup: React.FC<CompanyChipGroupProps> = ({ chipData, la
   return (
     <FormControl component="fieldset" variant="standard">
       {label && <FormLabel component="legend">{label}</FormLabel>}
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {description && <FormHelperText>{description}</FormHelperText>}
       <FormGroup>
         <Stack direction="row" spacing={1}>
-          {chipData.map((data) => (
+          {options.map((data) => (
             <Chip
               color={selectedChips.includes(data.key) ? "primary" : "default"}
               key={data.key}

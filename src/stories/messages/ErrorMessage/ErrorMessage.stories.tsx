@@ -1,19 +1,19 @@
 import React from 'react';
 import ErrorIcon from '@mui/icons-material/Error'; // Importing an error icon for demonstration
-import  CompanyLoadingMessage from './CompanyLoadingMessage'; // Ensure correct import path
+import { ErrorMessage } from './ErrorMessage'; // Ensure correct import path
 
 export default {
-  title: 'Atoms/CompanyLoadingMessage',
-  component: CompanyLoadingMessage,
+  title: 'Message/ErrorMessage',
+  component: ErrorMessage,
   argTypes: {
     backgroundColor: { control: 'color' }, // Optional, if your component supports changing the background color
   },
 };
 
-const Template = (args) => <CompanyLoadingMessage {...args} />;
+const Template = (args) => <ErrorMessage {...args} />;
 
 export const DefaultErrorMessage = Template.bind({});
 DefaultErrorMessage.args = {
   icon: <ErrorIcon />, // Example usage of an error icon
-  message: 'Loading Data....', // Example error description
+  description: 'An error occurred while fetching data.', // Example error description
 };

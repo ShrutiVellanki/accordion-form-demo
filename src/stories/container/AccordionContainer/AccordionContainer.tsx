@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import './CompanyAccordion.css';
 import React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,7 +8,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 /**
  * Primary UI component for user interaction
  */
-export const CompanyAccordion = ({
+export const AccordionContainer = ({
   accordionData,
   backgroundColor,
   ...props
@@ -46,7 +45,7 @@ export const CompanyAccordion = ({
   );
 }
 
-CompanyAccordion.propTypes = {
+AccordionContainer.propTypes = {
   accordionData: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -59,6 +58,6 @@ CompanyAccordion.propTypes = {
   backgroundColor: PropTypes.string,
 };
 
-CompanyAccordion.defaultProps = {
+AccordionContainer.defaultProps = {
   backgroundColor: '',
 };

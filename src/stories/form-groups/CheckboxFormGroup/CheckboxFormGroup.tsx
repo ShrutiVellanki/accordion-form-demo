@@ -6,7 +6,7 @@ interface Option {
   label: string;
 }
 
-interface CompanyCheckboxGroupProps {
+interface CheckboxFormGroupProps {
   options: Option[];
   name: string;
   label?: string;
@@ -16,7 +16,7 @@ interface CompanyCheckboxGroupProps {
   indeterminate?: boolean;
 }
 
-export const CompanyCheckboxGroup: React.FC<CompanyCheckboxGroupProps> = ({
+export const CheckboxFormGroup: React.FC<CheckboxFormGroupProps> = ({
   options,
   name,
   label,
@@ -55,7 +55,7 @@ export const CompanyCheckboxGroup: React.FC<CompanyCheckboxGroupProps> = ({
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+      <FormControl component="fieldset" variant="standard">
         {label && <FormLabel component="legend">{label}</FormLabel>}
         {description && <FormHelperText>{description}</FormHelperText>}
         <FormGroup>

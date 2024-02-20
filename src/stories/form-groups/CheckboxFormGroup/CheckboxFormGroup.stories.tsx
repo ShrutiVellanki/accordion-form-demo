@@ -1,14 +1,14 @@
-// CompanyCheckboxGroup.stories.tsx
+// CheckboxFormGroup.stories.tsx
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CompanyCheckboxGroup } from './CompanyCheckboxGroup';
+import { CheckboxFormGroup } from './CheckboxFormGroup';
 
 export default {
-  title: 'Molecules/CompanyCheckboxGroup',
-  component: CompanyCheckboxGroup,
-} as ComponentMeta<typeof CompanyCheckboxGroup>;
+  title: 'Form Groups/CheckboxFormGroup',
+  component: CheckboxFormGroup,
+} as ComponentMeta<typeof CheckboxFormGroup>;
 
-const Template: ComponentStory<typeof CompanyCheckboxGroup> = (args) => <CompanyCheckboxGroup {...args} />;
+const Template: ComponentStory<typeof CheckboxFormGroup> = (args) => <CheckboxFormGroup {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
