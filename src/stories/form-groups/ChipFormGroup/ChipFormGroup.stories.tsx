@@ -1,22 +1,34 @@
 // ChipFormGroup.stories.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ChipFormGroup } from './ChipFormGroup';
-import { BuildCircle, Face, Hardware, PrecisionManufacturing } from '@mui/icons-material';
+import { BuildCircle, Hardware, PrecisionManufacturing } from '@mui/icons-material';
 
 export default {
   title: 'Form Groups/ChipFormGroup',
   component: ChipFormGroup,
 } as ComponentMeta<typeof ChipFormGroup>;
 
-const Template: ComponentStory<typeof ChipFormGroup> = (args) => <ChipFormGroup {...args} />;
+// State management wrapper component for the story
+const ChipFormGroupWrapper: React.FC<Partial<typeof ChipFormGroup>> = ({ selectedChips: defaultSelectedChips = [], ...props }) => {
+  const [selectedChips, setSelectedChips] = useState<string[]>(defaultSelectedChips);
+
+  const handleToggle = (chipKey: string) => {
+    setSelectedChips((prevSelected) =>
+      prevSelected.includes(chipKey) ? prevSelected.filter((key) => key !== chipKey) : [...prevSelected, chipKey]
+    );
+  };
+
+  return <ChipFormGroup selectedChips={selectedChips} onToggle={handleToggle} {...props} />;
+};
+
+const Template: ComponentStory<typeof ChipFormGroupWrapper> = (args) => <ChipFormGroupWrapper {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
   label: 'Work Sites',
   description: 'Filter work orders by work sites.',
   selectedChips: ['toronto'],
-  onToggle: () => console.log('toggled'),
   options: [
     { key: 'toronto', label: 'Toronto'},
     { key: 'hamilton', label: 'Hamilton'},
@@ -28,7 +40,6 @@ WithIcons.args = {
   label: 'Assets',
   description: 'Filter work orders by asset types.',
   selectedChips: [],
-  onToggle: () => console.log('toggled'),
   options: [
     { key: 'wrench', label: 'Wrench', icon: <BuildCircle/>},
     { key: 'hammer5002', label: 'Hammer', icon: <Hardware /> },
@@ -41,7 +52,6 @@ SmallSize.args = {
   label: 'Work Sites',
   description: 'Filter work orders by work sites.',
   selectedChips: [],
-  onToggle: () => console.log('toggled'),
   options: [
     { key: 'toronto', label: 'Toronto', size: 'small'},
     { key: 'hamilton', label: 'Hamilton', size: 'small'},
@@ -50,5 +60,3 @@ SmallSize.args = {
   ],
   size: 'small',
 };
-
-

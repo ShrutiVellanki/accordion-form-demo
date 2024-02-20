@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormGroup, FormControlLabel, Checkbox, FormLabel, FormControl, Box, FormHelperText } from '@mui/material';
 
 interface Option {
@@ -9,9 +9,11 @@ interface Option {
 interface CheckboxFormGroupProps {
   options: Option[];
   name: string;
-  label?: string;
+  label: string;
+  checkedValues: string[];
+  onCheckboxChanged: (value: string) => void;
+  onSelectAllChanged: (isAllSelected: boolean) => void;
   description?: string;
-  defaultCheckedValues?: string[];
   disabledValues?: string[];
   indeterminate?: boolean;
 }
@@ -21,66 +23,64 @@ export const CheckboxFormGroup: React.FC<CheckboxFormGroupProps> = ({
   name,
   label,
   description,
-  defaultCheckedValues = [],
+  checkedValues,
+  onCheckboxChanged,
+  onSelectAllChanged,
   disabledValues = [],
   indeterminate = false,
 }) => {
-  const [checked, setChecked] = useState<string[]>(defaultCheckedValues);
   const [isIndeterminate, setIsIndeterminate] = useState(false);
   const [isCheckedAll, setIsCheckedAll] = useState(false);
 
   useEffect(() => {
-    const allChecked = options.every(option => checked.includes(option.value) && !disabledValues.includes(option.value));
-    const someChecked = options.some(option => checked.includes(option.value) && !disabledValues.includes(option.value));
+    const allChecked = options.every(option => checkedValues.includes(option.value) && !disabledValues.includes(option.value));
+    const someChecked = options.some(option => checkedValues.includes(option.value) && !disabledValues.includes(option.value));
     setIsCheckedAll(allChecked);
     setIsIndeterminate(!allChecked && someChecked);
-  }, [checked, options, disabledValues]);
+  }, [checkedValues, options, disabledValues]);
 
-  const handleParentChange = () => {
-    if (isCheckedAll || isIndeterminate) {
-      setChecked(checked.filter(value => disabledValues.includes(value))); // Keep only disabled values checked
-    } else {
-      setChecked(options.filter(option => !disabledValues.includes(option.value)).map(option => option.value)); // Check all except disabled
-    }
+  const handleSelectAll = () => {
+    const isAllSelected = options.length === checkedValues.length;
+    onSelectAllChanged(!isAllSelected);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setChecked(current => 
-      event.target.checked
-        ? [...current, value]
-        : current.filter(checkedValue => checkedValue !== value)
-    );
+  const handleCheckboxChange = (event) => {
+    onCheckboxChanged(event.target.value);
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <FormControl component="fieldset" variant="standard">
-        {label && <FormLabel component="legend">{label}</FormLabel>}
-        {description && <FormHelperText>{description}</FormHelperText>}
+      <FormControl component="fieldset" variant="standard" role="group" aria-labelledby={`${name}-label`} aria-describedby={`${name}-description`}>
+        <FormLabel id={`${name}-label`} component="legend">{label}</FormLabel>
+        {description && <FormHelperText id={`${name}-description`}>{description}</FormHelperText>}
         <FormGroup>
-          {indeterminate && <FormControlLabel
-            control={
-              <Checkbox
-                indeterminate={isIndeterminate}
-                checked={isCheckedAll}
-                onChange={handleParentChange}
-                name={`${name}-all`}
-                aria-label={"Select All"}
-              />
-            }
-            label={""}
-          />}
+          {indeterminate && (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  indeterminate={isIndeterminate}
+                  checked={isCheckedAll}
+                  onChange={handleSelectAll}
+                  name={`${name}-all`}
+                  aria-label="Select All"
+                  aria-checked={isCheckedAll ? 'true' : isIndeterminate ? 'mixed' : 'false'}
+                />
+              }
+              label="Select All"
+            />
+          )}
           {options.map((option) => (
             <FormControlLabel
               key={option.value}
               control={
                 <Checkbox
-                  checked={checked.includes(option.value)}
-                  onChange={handleChange}
+                  checked={checkedValues.includes(option.value)}
+                  onChange={handleCheckboxChange}
                   value={option.value}
                   name={name}
                   disabled={disabledValues.includes(option.value)}
+                  aria-checked={checkedValues.includes(option.value) ? 'true' : 'false'}
+                  aria-disabled={disabledValues.includes(option.value) ? 'true' : 'false'}
                 />
               }
               label={option.label}

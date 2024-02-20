@@ -4,17 +4,51 @@ import { Meta } from '@storybook/blocks';
 
 # Checkbox Form Group
 
-Background...
+The `CheckboxFormGroup` component is designed to encapsulate a group of checkboxes, allowing users to select multiple options from a set. This component enhances form functionality by grouping related options together, making it easier for users to understand their choices and for developers to manage form state.
 
 ### Use Cases
 
+`CheckboxFormGroup` is ideal for forms where users can make multiple selections, such as filters in a search interface, settings with multiple options, and anywhere you need to present a list of options with checkboxes. It's especially useful for enhancing user experience by grouping related checkboxes under a common label or question.
+
 ### Inputs
 
+```
+// Shape of a checkbox option
+interface Option {
+  value: string;
+  label: string;
+}
+
+// inputs to CheckboxFormGroup
+interface CheckboxFormGroupProps {
+  options: Option[];
+  name: string;
+  label: string;
+  checkedValues: string[];
+  onCheckboxChanged: (chipKey: string) => void;
+  onSelectAllChanged: (isAllSelected: boolean) => void;
+  description?: string;
+  disabledValues?: string[];
+  indeterminate?: boolean;
+}
+```
+
 ### State
-- state tradeoffs
+
+Managing state in `CheckboxFormGroup` involves tracking which checkboxes are checked and potentially handling a select-all functionality. By lifting state up, the parent component can control the checkboxes' state, allowing for more complex behaviors like conditional enabling/disabling of options based on other form inputs.
 
 ### Keyboard Navigation
 
+`CheckboxFormGroup` supports standard keyboard navigation for accessibility:
+- Tab navigation to move focus between checkboxes.
+- Spacebar to toggle the selected state of a focused checkbox.
+
 ### ARIA Attributes
 
+To ensure `CheckboxFormGroup` is accessible, it uses various ARIA attributes:
+- `role="group"` for the container to indicate that the checkboxes form a group.
+- `aria-checked` on each checkbox to indicate its checked state to assistive technologies.
+- `aria-disabled` to indicate if a checkbox is disabled.
+- Optionally, `aria-labelledby` or `aria-label` can be used to provide an accessible name for the checkbox group.
+- `aria-describedby` may be used to associate additional descriptive text with the group, enhancing the user's understanding of the available options.
 
