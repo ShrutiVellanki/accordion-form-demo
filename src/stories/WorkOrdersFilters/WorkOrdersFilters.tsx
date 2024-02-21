@@ -1,56 +1,104 @@
-// WorkOrdersFilters.tsx
 import React, { useState } from 'react';
 import { AccordionContainer } from '../container/AccordionContainer/AccordionContainer';
 import { Button, Typography } from '@mui/material';
 import { CheckboxFormGroup } from '../form-groups/CheckboxFormGroup/CheckboxFormGroup';
 import { ChipFormGroup } from '../form-groups/ChipFormGroup/ChipFormGroup';
+import ErrorMessage from '../messages/ErrorMessage/ErrorMessage';
+import LoadingMessage from '../messages/LoadingMessage/LoadingMessage';
 
-interface WorkOrdersFiltersProps {
-  filterOptions: any;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-}
-
-// Define a type for the filter option configuration
-interface FilterOptionConfig {
-  id: string;
-  icon: React.ReactElement;
-  label: string;
-  options: any[]; // Adjust the type based on your options structure
-  type: 'checkbox' | 'chip';
-  description: string;
-}
+const fetchOptionsForFilter = async (filterId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (filterId === 'error') {
+        reject('Failed to fetch options for ' + filterId);
+      } else {
+        resolve([
+          { value: filterId + '-option1', label: 'Option 1' },
+          { value: filterId + '-option2', label: 'Option 2' },
+        ]);
+      }
+    }, 1000);
+  });
+};
 
 export const WorkOrdersFilters = ({ filterOptions, onSubmit }) => {
-  // Prepare accordion sections with updated props for handling changes
-  const accordionData = filterOptions.map(({ id, icon, label, options, type, description }) => {
+  const [selectedFilters, setSelectedFilters] = useState({});
+  const [loadingStates, setLoadingStates] = useState({});
+  const [errorStates, setErrorStates] = useState({});
+  const [options, setOptions] = useState({}); // Holds fetched options for each filter
 
-    const detailsComponent = type === 'checkbox' ? (
-      <CheckboxFormGroup name={id} options={options} description={description} />
+  const handleAccordionChange = (id) => async (event, isExpanded) => {
+    if (isExpanded && !options[id]) {
+      setLoadingStates((prev) => ({ ...prev, [id]: true }));
+      try {
+        const fetchedOptions = await fetchOptionsForFilter(id);
+        setOptions((prev) => ({ ...prev, [id]: fetchedOptions }));
+        setSelectedFilters((prev) => ({ ...prev, [id]: [] })); // Initialize selected values for this filter
+      } catch (error) {
+        setErrorStates((prev) => ({ ...prev, [id]: error.toString() }));
+      } finally {
+        setLoadingStates((prev) => ({ ...prev, [id]: false }));
+      }
+    }
+  };
+
+  const handleFilterChange = (id, selectedValues) => {
+    setSelectedFilters((prev) => ({ ...prev, [id]: selectedValues }));
+  };
+
+  const handleResetFilters = () => {
+    setSelectedFilters({});
+  };
+
+  const renderFilterComponent = (filterConfig) => {
+    const { id, type, description, label } = filterConfig;
+    console.log(filterConfig.label);
+    const isLoading = loadingStates[id];
+    const error = errorStates[id];
+    const filterOptions = options[id] || [];
+    const selectedValues = selectedFilters[id] || [];
+
+    if (isLoading) return <LoadingMessage message="Loading options..." />;
+    if (error) return <ErrorMessage description={error} />;
+
+    return type === 'checkbox' ? (
+      <CheckboxFormGroup
+        key={id}
+        name={id}
+        options={filterOptions}
+        checkedValues={selectedValues}
+        onCheckboxChanged={(value) => handleFilterChange(id, [...selectedValues, value])}
+        description={description}
+        label={label}    />
     ) : (
-      <ChipFormGroup options={options} description={description} />
+      <ChipFormGroup
+        key={id}
+        options={filterOptions}
+        selectedChips={selectedValues}
+        onToggle={(value) => handleFilterChange(id, [...selectedValues, value])} 
+        description={description}
+        label={label}
+      />
     );
+  };
 
-    return {
-      id,
-      headerComponent: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {icon}
-          <Typography>{label}</Typography>
-        </div>
-      ),
-      detailsComponent,
-    };
-  });
+  const accordionData = filterOptions.map(({ id, icon, label, type, description }) => ({
+    id,
+    icon,
+    headerComponent: (
+        <Typography>{label}</Typography>
+    ),
+    detailsComponent: renderFilterComponent({ id, type, icon, label, description }),
+    onChange: handleAccordionChange(id), // Attach the change handler to each accordion section
+  }));
 
   return (
     <form onSubmit={onSubmit}>
-      <AccordionContainer accordionData={accordionData} backgroundColor={'white'} />
-      <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-        Apply Filters
-      </Button>
-      <Button variant="contained" color="primary" style={{ marginTop: '20px' }}>
-        Reset
-      </Button>
+      <AccordionContainer accordionData={accordionData} backgroundColor="white" />
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+        <Button type="submit" variant="contained" color="primary">Apply Filters</Button>
+        <Button onClick={handleResetFilters} variant="outlined" color="secondary">Reset</Button>
+      </div>
     </form>
   );
 };

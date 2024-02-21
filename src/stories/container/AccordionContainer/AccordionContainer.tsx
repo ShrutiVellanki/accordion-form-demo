@@ -13,21 +13,21 @@ export const AccordionContainer = ({
 }) => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-
   return (
     <div style={{ backgroundColor }}>
-      {accordionData.map((panel, index) => (
+      {accordionData.map((panel) => (
         <Accordion
           key={panel.id}
           expanded={expanded === panel.id}
-          onChange={handleChange(panel.id)}
+          onChange={(event, isExpanded) => {
+            setExpanded(isExpanded ? panel.id : false);
+            if (panel.onChange) panel.onChange(event, isExpanded);
+          }}
+          TransitionProps={{ unmountOnExit: true }}
           {...props}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon aria-hidden={true}/>}
+            expandIcon={<ExpandMoreIcon />}
             aria-controls={`${panel.id}-content`}
             id={`${panel.id}-header`}
           >
@@ -60,9 +60,12 @@ AccordionContainer.propTypes = {
       headerComponent: PropTypes.node.isRequired, // Any React node for the primary header
       secondaryHeaderComponent: PropTypes.node, // Any React node for the secondary header, optional
       detailsComponent: PropTypes.node.isRequired, // Any React node for the details
+      onChange: PropTypes.func, // Optional function to call when an accordion panel is expanded or collapsed
     })
   ).isRequired,
+  backgroundColor: PropTypes.string,
 };
 
 AccordionContainer.defaultProps = {
+  backgroundColor: '',
 };

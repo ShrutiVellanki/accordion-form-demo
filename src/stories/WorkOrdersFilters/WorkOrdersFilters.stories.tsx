@@ -17,11 +17,6 @@ const filterOptionsConfig = [
     icon: <Build color="primary"/>,
     label: 'Type',
     description: 'Filter by work order type.',
-    options: [
-      { value: 'maintenance', label: 'Maintenance' },
-      { value: 'inspection', label: 'Inspection' },
-      { value: 'repair', label: 'Repair' },
-    ],
     type: 'checkbox',
   },
   {
@@ -29,11 +24,6 @@ const filterOptionsConfig = [
     icon: <PriorityHigh color="primary"/>,
     label: 'Priority',
     description: 'Filter by work order priority.',
-    options: [
-      { value: 'high', label: 'High' },
-      { value: 'medium', label: 'Medium' },
-      { value: 'low', label: 'Low' },
-    ],
     type: 'checkbox',
   },
   {
@@ -41,12 +31,6 @@ const filterOptionsConfig = [
     icon: <Place color="primary"/>,
     label: 'Site',
     description: 'Filter work orders by their assigned sites.',
-    options: [
-      // Assuming these are dynamically fetched or predefined
-      { key: 'site1', label: 'Site 1' },
-      { key: 'site2', label: 'Site 2' },
-      // More sites...
-    ],
     type: 'chip',
   },
   {
@@ -54,12 +38,6 @@ const filterOptionsConfig = [
     icon: <Storage color="primary"/>,
     label: 'Assets',
     description: 'Filter work orders by their assigned assets.',
-    options: [
-      // Assuming these are dynamically fetched or predefined
-      { key: 'asset1', label: 'Asset 1' },
-      { key: 'asset2', label: 'Asset 2' },
-      // More assets...
-    ],
     type: 'chip',
   },
   {
@@ -67,12 +45,6 @@ const filterOptionsConfig = [
     icon: <People color="primary"/>,
     label: 'Assigned Users',
     description: 'Filter work orders by their assigned users.',
-    options: [
-      // Assuming these are dynamically fetched or predefined
-      { key: 'user1', label: 'User 1' },
-      { key: 'user2', label: 'User 2' },
-      // More users...
-    ],
     type: 'chip',
   },
   {
@@ -80,11 +52,6 @@ const filterOptionsConfig = [
     icon: <AssignmentTurnedIn color="primary"/>,
     label: 'Status',
     description: 'Filter by work order status',
-    options: [
-      { value: 'open', label: 'Open' },
-      { value: 'inProgress', label: 'In Progress' },
-      { value: 'closed', label: 'Closed' },
-    ],
     type: 'checkbox',
   },
 ];

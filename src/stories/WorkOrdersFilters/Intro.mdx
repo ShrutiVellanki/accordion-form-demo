@@ -6,28 +6,37 @@ import { Meta } from '@storybook/blocks';
 # Work Orders Filters Feature
 
 ### Background
+When I worked at Fiix Software, we wanted to build a set of filters for work order management system (for use in factories, warehouses, etc.).
+
+The filters had to be responsive, accessible and adhere to our design system. Some filters were fixed, while others depended on the user that was logged in. 
+
+We achieved this breaking down this filter feature into small, resusable components. 
 
 ---
+### Tradeoffs
 
-### Tradeoff #1: MUI vs. Building From Scratch
+There were several tradeoffs involved when building this feature. 
 
----
+**Material-UI vs. Building From Scratch**
 
-### Tradeoff # 2: Dropdown Menus vs. Accordion
+Since the design system was built using Material UI this was an easy choice. Our design system wasn't as fleshed out at that point so we checked that the components we were considering (accordions, dropdown menus, chips) would make sense for this feature as well as for the whole design system.
 
-----
+Considerations included responsiveness, accessibility, speed of development. We collaborated with designers and other teams who could be impacted during this process.
 
-### Inputs
+This involved sacrificing some flexibility when it came to design choices, as well as taking a hit to development speed because contributing to a centralized design system meant making flexible, fully tested out components.
 
-----
+**Dropdown Menus vs. Accordions**
 
-### State
-- state tradeoffs
+We considered using dropdown menus at first because popular scheduling systems (like Google Calendar) use these to manage filters. However usability testing showed that filters were the main way our users would interact with this system so it made sense for their display to be more obvious. In addition, we decided that accordions would work better on mobile devices and wouldn't take much additional development effort to adapt when compared to dropdown menus.
 
-----
+**Component Composition**
 
-### Keyboard Navigation
+Because our filtering system needed an accordion UI, form components, error states and loading states, it made sense for us to break all of these down so that other teams would get them "for free". This also allowed us to easily update our filters or introduce new filter types if needed.
 
-----
+**Dynamic Filters, Loading States and Error States**
 
-### ARIA Attributes
+Filters like available assignees, assets and sites were dependent on the user and project that was using this tool. We used chips to accommodate for increased options because scrolling through a list of checkboxes would be cumbersome. Filters were lazily loaded on accordion expansion to prevent the entire screen from crashing on error.
+
+**Lifting State Up**
+We decided to lift state up to the parent component instead of letting the form group components manage their state to allow for easier form validation, submission and reset filters logic. 
+
