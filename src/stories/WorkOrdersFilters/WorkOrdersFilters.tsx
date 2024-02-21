@@ -9,8 +9,7 @@ import LoadingMessage from '../messages/LoadingMessage/LoadingMessage';
 
 // for now we load hardcoded filter options but this would be ideally fetched from an endpoint and mapped to the type of filter (including icons for chip filter types)
 const fetchOptionsForFilter = async (filterId) => {
-  console.log(filterId);
-  return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (filterId === 'error') {
         reject('Failed to fetch options for ' + filterId);
@@ -46,8 +45,7 @@ export const WorkOrdersFilters = ({ filterOptions }) => {
   };
 
   const handleFilterChange = (id, selectedValues) => {
-    console.log(id, selectedValues);
-    setSelectedFilters((prev) => ({ ...prev, [id]: selectedValues }));
+        setSelectedFilters((prev) => ({ ...prev, [id]: selectedValues }));
   };
 
   const handleResetFilters = () => {
