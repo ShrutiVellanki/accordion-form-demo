@@ -11,7 +11,9 @@ const Template: ComponentStory<typeof WorkOrdersFilters> = (args) => <WorkOrders
 
 import { Build, PriorityHigh, Place, People, AssignmentTurnedIn, Storage } from '@mui/icons-material';
 
-const filterOptionsConfig = [
+// for now we supply icons to our filters directly but this would ideally be determined by a map to a defined set of string inputs
+// the fetch endpoint of the filter options would also need to be supplied
+const filterOptions = [
   {
     id: 'type',
     icon: <Build color="primary"/>,
@@ -59,9 +61,5 @@ const filterOptionsConfig = [
 
 export const Demo = Template.bind({});
 Demo.args = {
-  filterOptions: filterOptionsConfig,
-  onSubmit: (event) => {
-    event.preventDefault();
-    alert('Form submission logic here.');
-  },
+  filterOptions,
 };

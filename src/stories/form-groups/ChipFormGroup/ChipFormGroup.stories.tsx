@@ -9,7 +9,6 @@ export default {
   component: ChipFormGroup,
 } as ComponentMeta<typeof ChipFormGroup>;
 
-// State management wrapper component for the story
 const ChipFormGroupWrapper: React.FC<Partial<typeof ChipFormGroup>> = ({ selectedChips: defaultSelectedChips = [], ...props }) => {
   const [selectedChips, setSelectedChips] = useState<string[]>(defaultSelectedChips);
 

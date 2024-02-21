@@ -1,7 +1,7 @@
 // LoadingMessage.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress'; // Material-UI loading spinner
+import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 
@@ -17,12 +17,12 @@ const LoadingMessage = ({ message, showIcon = true }) => {
 };
 
 LoadingMessage.propTypes = {
-  message: PropTypes.string.isRequired, // The loading message text
-  showIcon: PropTypes.bool, // Whether to show the loading icon
+  message: PropTypes.string.isRequired,
+  showIcon: PropTypes.bool,
 };
 
 LoadingMessage.defaultProps = {
-  showIcon: true, // Default to showing the icon
+  showIcon: true,
 };
 
 export default LoadingMessage;

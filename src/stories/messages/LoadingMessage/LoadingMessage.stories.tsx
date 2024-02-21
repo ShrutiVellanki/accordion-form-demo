@@ -1,12 +1,12 @@
 import React from 'react';
-import ErrorIcon from '@mui/icons-material/Error'; // Importing an error icon for demonstration
-import  LoadingMessage from './LoadingMessage'; // Ensure correct import path
+import ErrorIcon from '@mui/icons-material/Error';
+import  LoadingMessage from './LoadingMessage';
 
 export default {
   title: 'Message/LoadingMessage',
   component: LoadingMessage,
   argTypes: {
-    backgroundColor: { control: 'color' }, // Optional, if your component supports changing the background color
+    backgroundColor: { control: 'color' },
   },
 };
 
@@ -14,6 +14,6 @@ const Template = (args) => <LoadingMessage {...args} />;
 
 export const DefaultLoadingMessage = Template.bind({});
 DefaultLoadingMessage.args = {
-  icon: <ErrorIcon />, // Example usage of an error icon
-  message: 'Loading Data....', // Example error description
+  icon: <ErrorIcon />, 
+  message: 'Loading Data....',
 };
